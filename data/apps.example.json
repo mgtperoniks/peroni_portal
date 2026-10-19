@@ -1,0 +1,78 @@
+{
+  "system_title": "PERONI APPLICATION TERMINAL",
+  "company_name": "PT Peroni Karya Sentra",
+  "departments": [
+    "Aplikasi QC",
+    "HR-KPI",
+    "PPIC",
+    "Gudang",
+    "Maintenance",
+    "Marketing",
+    "Aplikasi Bersama"
+  ],
+  "apps": [
+    {
+      "id": "app-qc-01",
+      "name": "Sistem Mutu Produksi & QC",
+      "url": "http://10.88.8.46:6002",
+      "department": "Aplikasi QC",
+      "icon": "assets/icons/qc.svg",
+      "order": 1,
+      "description": "Inspeksi kualitas lini produksi, checklist dimensi, dan laporan mutu harian"
+    },
+    {
+      "id": "app-hr-01",
+      "name": "HR Portal & KPI",
+      "url": "http://10.88.8.46:8081",
+      "department": "HR-KPI",
+      "icon": "assets/icons/hr.svg",
+      "order": 2,
+      "description": "Presensi karyawan, penilaian KPI bulanan, dan pengajuan cuti"
+    },
+    {
+      "id": "app-ppic-01",
+      "name": "Jadwal PPIC & MPS",
+      "url": "http://10.88.8.46:8082",
+      "department": "PPIC",
+      "icon": "assets/icons/ppic.svg",
+      "order": 3,
+      "description": "Master Production Schedule, kalkulasi material BOM, dan monitoring SPK"
+    },
+    {
+      "id": "app-wh-01",
+      "name": "WMS Gudang & Material",
+      "url": "http://10.88.8.46:8083",
+      "department": "Gudang",
+      "icon": "assets/icons/warehouse.svg",
+      "order": 4,
+      "description": "Stok barang masuk/keluar, kartu stok bahan baku, dan inventarisasi"
+    },
+    {
+      "id": "app-maint-01",
+      "name": "E-Maintenance & PM",
+      "url": "http://10.88.8.46:8084",
+      "department": "Maintenance",
+      "icon": "assets/icons/maintenance.svg",
+      "order": 5,
+      "description": "Preventive maintenance mesin, logbook kerusakan, dan riwayat perbaikan"
+    },
+    {
+      "id": "app-mkt-01",
+      "name": "Marketing & Order Tracking",
+      "url": "http://10.88.8.46:8085",
+      "department": "Marketing",
+      "icon": "assets/icons/marketing.svg",
+      "order": 6,
+      "description": "Status Purchase Order pelanggan, penawaran harga, dan data customer"
+    },
+    {
+      "id": "app-shared-01",
+      "name": "Dokumen ISO & SOP Bersama",
+      "url": "http://10.88.8.46:8086",
+      "department": "Aplikasi Bersama",
+      "icon": "assets/icons/shared.svg",
+      "order": 7,
+      "description": "Repositori SOP terpadu, template form, dan instruksi kerja lintas divisi"
+    }
+  ]
+}

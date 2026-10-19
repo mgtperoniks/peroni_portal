@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="whGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="24" fill="url(#whGrad)"/>
+  <!-- Warehouse 3D Box -->
+  <path d="M50 24 L76 37 L50 50 L24 37 Z" fill="#ffffff" opacity="0.9"/>
+  <path d="M24 37 L50 50 V76 L24 63 Z" fill="#ffffff" opacity="0.75"/>
+  <path d="M50 50 L76 37 V63 L50 76 Z" fill="#ffffff" opacity="0.6"/>
+</svg>

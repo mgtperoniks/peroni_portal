@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PERONI APPLICATION TERMINAL — PT Peroni Karya Sentra</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/peroni-logo.svg">
+</head>
+<body>
+
+  <!-- Top Status Bar ala Android -->
+  <header class="status-bar">
+    <div class="brand-wrapper">
+      <img src="assets/icons/peroni-logo.svg" alt="Peroni Logo" class="brand-logo">
+      <div class="brand-info">
+        <span class="brand-title">Peroni Application Terminal</span>
+        <span class="brand-sub">PT Peroni Karya Sentra</span>
+      </div>
+    </div>
+    <div class="status-controls">
+      <div class="lan-badge" title="Terhubung ke Jaringan LAN Internal">
+        <span class="lan-dot"></span>
+        <span>LAN Internal</span>
+      </div>
+      <a href="admin.html" class="btn-admin-nav" title="Buka Panel Administrator">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span>Kelola Terminal</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Portal Container -->
+  <main class="portal-container">
+    
+
+    <!-- Floating Search Bar -->
+    <div class="search-wrapper">
+      <div class="search-bar">
+        <svg class="search-icon" viewBox="0 0 24 24">
+          <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-input" 
+          placeholder="Cari nama aplikasi, divisi, atau nomor port..." 
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <button type="button" id="searchClearBtn" class="search-clear-btn" title="Hapus pencarian">&times;</button>
+        <span class="search-shortcut">/</span>
+      </div>
+    </div>
+
+    <!-- Category Tabs (Filter Pill ala Android) -->
+    <div class="category-filter-container">
+      <div class="category-tabs" id="categoryTabs">
+        <!-- Rendered by portal.js -->
+      </div>
+    </div>
+
+    <!-- Dynamic App Grid -->
+    <div id="appContainer">
+      <!-- Rendered dynamically by portal.js -->
+    </div>
+
+  </main>
+
+  <!-- Minimalist Footer -->
+  <footer class="portal-footer">
+    <div class="footer-company">&copy; PT Peroni Karya Sentra — Peroni Application Terminal</div>
+    <div>Sistem Portal Terpadu Jaringan Internal (Offline-Ready LAN)</div>
+  </footer>
+
+  <script src="assets/js/portal.js"></script>
+</body>
+</html>

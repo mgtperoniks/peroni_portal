@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — PERONI APPLICATION TERMINAL</title>
+  <link rel="stylesheet" href="assets/css/admin.css">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/peroni-logo.svg">
+</head>
+<body>
+
+  <!-- Toast Notification -->
+  <div id="toastAlert" class="toast-alert">
+    <span id="toastMessage">Pemberitahuan</span>
+  </div>
+
+  <!-- Admin Top Navigation -->
+  <header class="admin-navbar">
+    <div class="admin-nav-left">
+      <img src="assets/icons/peroni-logo.svg" alt="Peroni Logo" class="admin-logo">
+      <span class="admin-title-text">PERONI TERMINAL</span>
+      <span class="admin-badge">Admin Manager</span>
+    </div>
+    <div class="admin-nav-right">
+      <a href="index.html" class="btn-secondary" title="Kembali ke Tampilan Terminal Portal">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Buka Portal Terminal</span>
+      </a>
+      <button type="button" id="btnLogout" class="btn-secondary" style="display: none;" title="Keluar Sesi Admin">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
+        <span>Keluar</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="admin-container">
+
+    <!-- 1. VIEW LOGIN FORM (Jika belum login) -->
+    <div id="loginSection" class="login-wrapper">
+      <img src="assets/icons/peroni-logo.svg" alt="Peroni Logo" class="login-icon">
+      <h1 class="login-title">Autentikasi Administrator</h1>
+      <p class="login-subtitle">Masukkan kata sandi untuk mengelola daftar aplikasi portal PT Peroni Karya Sentra</p>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginPassword" class="form-label">Kata Sandi Administrator</label>
+          <input
+            type="password"
+            id="loginPassword"
+            class="form-control"
+            placeholder="Masukkan kata sandi..."
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <div id="loginErrorMsg" style="color: var(--admin-danger); font-size: 0.85rem; margin-bottom: 14px; min-height: 18px;"></div>
+
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 10px;">
+          Masuk ke Panel Pengelolaan
+        </button>
+
+        <div class="login-hint">
+          <strong>Informasi Akses Default:</strong><br>
+          Kata sandi bawaan sistem: <code>admin123</code><br>
+          (Dapat diubah melalui file <code>config.php</code>)
+        </div>
+      </form>
+    </div>
+
+    <!-- 2. VIEW DASHBOARD MANAGEMENT (Jika sudah login) -->
+    <div id="dashboardSection" style="display: none;">
+
+      <!-- Header & Action -->
+      <div class="dashboard-header">
+        <div>
+          <h1 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 4px;">Pengelolaan Aplikasi Terminal</h1>
+          <p style="color: var(--admin-text-sub); font-size: 0.88rem;">
+            Perubahan konfigurasi akan tersimpan di server dan otomatis berlaku untuk seluruh pengguna LAN.
+          </p>
+        </div>
+        <div>
+          <button type="button" id="btnOpenAddModal" class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>Tambah Aplikasi Baru</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-icon">&#128187;</div>
+          <div class="stat-info">
+            <span class="stat-num" id="statTotalApps">0</span>
+            <span class="stat-label">Total Aplikasi Terpasang</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">&#127970;</div>
+          <div class="stat-info">
+            <span class="stat-num" id="statTotalDepts">0</span>
+            <span class="stat-label">Departemen / Kategori</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">&#128737;</div>
+          <div class="stat-info">
+            <span class="stat-num" style="font-size:1.1rem; color:var(--admin-success); margin-top:4px;">Server JSON</span>
+            <span class="stat-label">Mode Penyimpanan Terpusat</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table Card -->
+      <div class="table-card">
+
+        <!-- Table Toolbar -->
+        <div class="table-toolbar">
+          <div class="filter-group">
+            <input
+              type="text"
+              id="adminSearch"
+              class="form-control admin-search"
+              placeholder="Cari aplikasi atau URL..."
+            >
+            <select id="adminDeptFilter" class="form-control" style="width: auto; min-width: 170px;">
+              <option value="">Semua Departemen</option>
+            </select>
+          </div>
+          <span style="font-size: 0.8rem; color: var(--admin-text-muted);">
+            Klik URL untuk menguji pembukaan aplikasi di tab baru
+          </span>
+        </div>
+
+        <!-- Table Content -->
+        <div class="table-responsive">
+          <table class="apps-table">
+            <thead>
+              <tr>
+                <th style="text-align: center;">Urutan</th>
+                <th>Ikon</th>
+                <th>Nama & Deskripsi Aplikasi</th>
+                <th>Alamat URL / Port</th>
+                <th>Departemen</th>
+                <th style="text-align: right;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="appsTableBody">
+              <!-- Rendered by admin.js -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- 3. MODAL TAMBAH / EDIT APLIKASI -->
+  <div id="appModal" class="modal-overlay">
+    <div class="modal-box">
+
+      <div class="modal-header">
+        <h2 id="modalTitle" class="modal-title">Tambah Aplikasi Baru</h2>
+        <button type="button" class="modal-close close-modal">&times;</button>
+      </div>
+
+      <form id="appForm">
+        <div class="modal-body">
+          <input type="hidden" id="appId">
+
+          <!-- Nama Aplikasi -->
+          <div class="form-group">
+            <label for="appName" class="form-label">Nama Aplikasi <span style="color:var(--admin-danger)">*</span></label>
+            <input
+              type="text"
+              id="appName"
+              class="form-control"
+              placeholder="Contoh: Sistem Mutu Produksi & QC"
+              required
+            >
+          </div>
+
+          <!-- URL Aplikasi -->
+          <div class="form-group">
+            <label for="appUrl" class="form-label">
+              URL Lengkap Aplikasi <span style="color:var(--admin-danger)">*</span>
+              <small>(harus diawali http:// atau https://)</small>
+            </label>
+            <input
+              type="text"
+              id="appUrl"
+              class="form-control"
+              placeholder="Contoh: http://10.88.8.46:6002"
+              required
+            >
+          </div>
+
+          <!-- Departemen & Urutan -->
+          <div style="display: flex; gap: 14px;">
+            <div class="form-group" style="flex: 2;">
+              <label for="appDept" class="form-label">Departemen / Kategori</label>
+              <select id="appDept" class="form-control" required>
+                <!-- Populated by admin.js -->
+              </select>
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label for="appOrder" class="form-label">Nomor Urut</label>
+              <input
+                type="number"
+                id="appOrder"
+                class="form-control"
+                min="1"
+                value="1"
+                required
+              >
+            </div>
+          </div>
+
+          <!-- Deskripsi Singkat -->
+          <div class="form-group">
+            <label for="appDesc" class="form-label">Deskripsi Singkat <small>(opsional, muncul di tooltip portal)</small></label>
+            <input
+              type="text"
+              id="appDesc"
+              class="form-control"
+              placeholder="Contoh: Checklist inspeksi harian dan validasi mutu"
+            >
+          </div>
+
+          <!-- Bagian Pilihan Ikon -->
+          <div class="form-group">
+            <label class="form-label">Pilihan Ikon Aplikasi</label>
+
+            <div class="icon-selector-section">
+              <!-- Switch Tabs -->
+              <div class="icon-selector-tabs">
+                <button type="button" id="tabPresetIcon" class="icon-tab-btn active">Pilih Ikon Bawaan</button>
+                <button type="button" id="tabUploadIcon" class="icon-tab-btn">Unggah Ikon dari Komputer</button>
+              </div>
+
+              <!-- Pilihan 1: Preset Grid -->
+              <div id="presetIconArea">
+                <div class="preset-icons-grid" id="presetIconsGrid">
+                  <!-- Rendered by admin.js -->
+                </div>
+              </div>
+
+              <!-- Pilihan 2: Upload File -->
+              <div id="uploadIconArea" style="display: none;">
+                <input type="file" id="iconFileInput" accept=".png,.jpg,.jpeg,.webp,.svg,.ico" style="display: none;">
+                <div class="upload-dropzone" id="uploadDropzone">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--admin-primary)">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                  <p>Klik atau Seret file gambar ikon ke sini</p>
+                  <span style="font-size: 0.75rem; color: var(--admin-text-muted);">
+                    Format: PNG, JPG, WEBP, SVG, atau ICO (Maks. 2 MB)
+                  </span>
+                </div>
+              </div>
+
+              <!-- Live Preview Box -->
+              <div class="icon-preview-box">
+                <img id="previewImg" class="preview-thumb" src="assets/icons/default-app.svg" alt="Preview Ikon">
+                <div class="preview-info">
+                  <strong style="color: var(--admin-text); display: block;">Preview Tampilan Ikon</strong>
+                  <span id="previewText">Ikon terpilih</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary close-modal">Batal</button>
+          <button type="submit" class="btn-primary">Simpan Aplikasi</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+# ==============================================================================
+# PERONI APPLICATION TERMINAL - GIT IGNORE
+# PT Peroni Karya Sentra
+# ==============================================================================
+
+# 1. Konfigurasi Lokal & Kredensial Sensitif
+config.local.php
+.env
+.env.*
+*.local
+
+# 2. Data Operasional Server (Daftar Aplikasi Aktif)
+/data/apps.json
+!/data/apps.example.json
+
+# 3. Direktori Unggahan Ikon Admin (Simpan Lokal Server)
+/data/uploads/*
+!/data/uploads/.gitkeep
+!/data/uploads/.htaccess
+
+# 4. Cache Sistem Operasi
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# 5. Editor & IDE Settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+nbproject/
+*.swp
+*.swo
+*~
+
+# 6. Log & File Temporer
+*.log
+scratch/
+tmp/
+temp/

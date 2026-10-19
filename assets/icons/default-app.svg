@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="defGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#475569" />
+      <stop offset="100%" stop-color="#64748b" />
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="24" fill="url(#defGrad)"/>
+  <!-- App Grid / Window Icon -->
+  <rect x="28" y="28" width="18" height="18" rx="4" fill="#ffffff" opacity="0.9"/>
+  <rect x="54" y="28" width="18" height="18" rx="4" fill="#ffffff" opacity="0.9"/>
+  <rect x="28" y="54" width="18" height="18" rx="4" fill="#ffffff" opacity="0.9"/>
+  <rect x="54" y="54" width="18" height="18" rx="4" fill="#ffffff" opacity="0.9"/>
+</svg>
