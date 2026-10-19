@@ -9,7 +9,7 @@ services:
       - "${PORT:-9999}:80"
     environment:
       - APP_ENV=${APP_ENV:-production}
-      - PERONI_ADMIN_PASSWORD=${PERONI_ADMIN_PASSWORD:?Error: PERONI_ADMIN_PASSWORD wajib disetel di file .env server}
+      - "PERONI_ADMIN_PASSWORD=${PERONI_ADMIN_PASSWORD:?PERONI_ADMIN_PASSWORD wajib disetel di file .env server}"
       - PERONI_ADMIN_HASH=${PERONI_ADMIN_HASH:-}
     volumes:
       # Penyimpanan persisten di host server untuk konfigurasi apps.json dan file ikon uploads
