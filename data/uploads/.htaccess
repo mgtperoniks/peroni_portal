@@ -1,9 +1,29 @@
-# Mencegah eksekusi script PHP di dalam folder uploads
-<FilesMatch "(?i)\.(php|php[0-9]|phtml|phps|exe|pl|py|cgi|sh|bat)$">
-    Order Deny,Allow
-    Deny from all
+# ==============================================================================
+# PERONI APPLICATION TERMINAL - UPLOADS SECURITY (.htaccess)
+# PT Peroni Karya Sentra
+# ==============================================================================
+
+# 1. Nonaktifkan penelusuran direktori (Directory Browsing / Listing)
+Options -Indexes -ExecCGI
+
+# 2. Blokir seluruh eksekusi skrip dan executable
+<FilesMatch "(?i)\.(php|php[0-9]|phtml|phps|phar|exe|pl|py|cgi|sh|bat|cmd)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Deny,Allow
+        Deny from all
+    </IfModule>
 </FilesMatch>
-Options -ExecCGI
+
+# 3. Pastikan semua file di dalam folder uploads hanya disajikan sebagai file statis
+<IfModule mod_mime.c>
+    RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .phps
+    SetHandler default-handler
+</IfModule>
+
+# 4. Matikan PHP engine jika modul php aktif
 <IfModule mod_php.c>
     php_flag engine off
 </IfModule>

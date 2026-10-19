@@ -7,6 +7,7 @@
 config.local.php
 .env
 .env.*
+!.env.example
 *.local
 
 # 2. Data Operasional Server (Daftar Aplikasi Aktif)

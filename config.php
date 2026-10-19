@@ -28,6 +28,12 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Mode environment: production / development
+$appEnv = strtolower(trim((string)(getenv('APP_ENV') ?: ($_ENV['APP_ENV'] ?? 'development'))));
+if (!defined('APP_ENV')) {
+    define('APP_ENV', $appEnv);
+}
+
 // Ambil kredensial admin dari config.local.php atau environment variable server
 $envPass = getenv('PERONI_ADMIN_PASSWORD') ?: ($_ENV['PERONI_ADMIN_PASSWORD'] ?? null);
 $envHash = getenv('PERONI_ADMIN_HASH') ?: ($_ENV['PERONI_ADMIN_HASH'] ?? null);
@@ -37,8 +43,16 @@ if (!defined('ADMIN_PASSWORD_HASH')) {
 }
 
 if (!defined('ADMIN_DEFAULT_PLAIN_PASS')) {
-    // Default fallback lokal untuk Laragon jika config.local.php belum dibuat
-    define('ADMIN_DEFAULT_PLAIN_PASS', defined('CUSTOM_ADMIN_PASSWORD') ? CUSTOM_ADMIN_PASSWORD : ($envPass ?: 'admin123'));
+    $customPass = defined('CUSTOM_ADMIN_PASSWORD') ? CUSTOM_ADMIN_PASSWORD : ($envPass ?: null);
+    if ($customPass !== null && $customPass !== '') {
+        define('ADMIN_DEFAULT_PLAIN_PASS', $customPass);
+    } elseif (APP_ENV === 'production') {
+        // PADA MODE PRODUKSI: Jangan pernah izinkan fallback password admin123
+        define('ADMIN_DEFAULT_PLAIN_PASS', '');
+    } else {
+        // Fallback bawaan hanya untuk local development (Laragon Windows)
+        define('ADMIN_DEFAULT_PLAIN_PASS', 'admin123');
+    }
 }
 
 /**

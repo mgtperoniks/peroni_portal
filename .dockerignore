@@ -1,0 +1,32 @@
+# ==============================================================================
+# PERONI APPLICATION TERMINAL - DOCKER IGNORE
+# PT Peroni Karya Sentra
+# ==============================================================================
+
+# Git & Dokumentasi
+.git/
+.gitignore
+README.md
+
+# Kredensial Sensitif & Konfigurasi Lokal Host
+.env
+.env.*
+config.local.php
+config.local.example.php
+
+# Data Operasional Aktif (Dipersistenkan via Host Bind Mount)
+data/apps.json
+data/uploads/*
+!data/uploads/.gitkeep
+!data/uploads/.htaccess
+
+# Cache & Temporary
+*.log
+tmp/
+temp/
+scratch/
+tests/
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
